@@ -16,7 +16,10 @@ import {
 	IS_EMPTY,
 	IS_END,
 	REQUEST_FAVORITE,
+	REQUEST_REFRESH_FAVORITE,
 	ADD_FAVORITE,
+	refreshFavorite,
+	REFRESH_FAVORITE_SUCCESS,
 } from './actions/search';
 
 export function* searchWorker({ payload }) {
@@ -65,9 +68,19 @@ export function* addFavoriteWorker({ payload }) {
 		console.log(error.message);
 	}
 }
+
+export function* refreshFavoriteWorker() {
+	try {
+		const data = yield call(refreshFavorite);
+		yield put({ type: REFRESH_FAVORITE_SUCCESS, payload: { data } });
+	} catch (error) {
+		console.log(error.message);
+	}
+}
 export default function* sagas() {
 	yield takeLatest(SEARCH_IMAGE, searchWorker);
 	yield takeLatest(SEARCH_MORE, searchMoreWorker);
 	yield takeLatest(REQUEST_FAVORITE, searchFavoriteWorker);
 	yield takeLatest(ADD_FAVORITE, addFavoriteWorker);
+	yield takeLatest(REQUEST_REFRESH_FAVORITE, refreshFavoriteWorker);
 }

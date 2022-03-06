@@ -1,14 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, View, FlatList, RefreshControl } from 'react-native';
 
 import { useSelector } from 'react-redux';
-
 import { useDispatch } from 'react-redux';
-
 import { useTailwind } from 'tailwind-rn/dist';
 
 import CardImage from '../components/CardImage';
-import { REQUEST_FAVORITE } from '../redux/actions/search';
+import { REQUEST_REFRESH_FAVORITE } from '../redux/actions/search';
 
 const Favorite = () => {
 	const [refreshing, setRefreshing] = useState(false);
@@ -19,7 +17,13 @@ const Favorite = () => {
 		container: tailwind('flex-1'),
 		listContainer: tailwind('justify-center items-center my-1 pb-2'),
 	};
-	const handleRefresh = () => {};
+	const handleRefresh = () => {
+		setRefreshing(true);
+		dispatch({
+			type: REQUEST_REFRESH_FAVORITE,
+		});
+		setRefreshing(false);
+	};
 	return (
 		<View style={styles.container}>
 			<FlatList

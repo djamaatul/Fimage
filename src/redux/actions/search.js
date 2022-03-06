@@ -14,6 +14,8 @@ export const IS_END = 'IS_END';
 export const REQUEST_FAVORITE = 'REQUEST_FAVORITE';
 export const GET_FAVORITE_SUCCESS = 'GET_FAVORITE_SUCCESS';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
+export const REQUEST_REFRESH_FAVORITE = 'REQUEST_REFRESH_FAVORITE';
+export const REFRESH_FAVORITE_SUCCESS = 'REFRESH_FAVORITE_SUCCESS';
 
 export function requestImages(query) {
 	return {
@@ -77,8 +79,12 @@ export const fetchingFavorite = async () => {
 export const addFavorite = async (data) => {
 	AsyncStorage.getItem('@favoriteImages', (err, result) => {
 		let parsedResult = JSON.parse(result);
-		console.log(parsedResult);
 		AsyncStorage.setItem('@favoriteImages', JSON.stringify([...parsedResult, data]));
 	});
 	return data;
+};
+
+export const refreshFavorite = async (data) => {
+	let result = await AsyncStorage.getItem('@favoriteImages');
+	return JSON.parse(result);
 };

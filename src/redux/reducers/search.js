@@ -8,6 +8,7 @@ import {
 	LOAD_MORE_OFF,
 	IS_EMPTY,
 	IS_END,
+	REFRESH_FAVORITE_SUCCESS,
 } from '../actions/search';
 
 const initialState = {
@@ -35,7 +36,9 @@ const reducer = (state = initialState, { type, payload }) => {
 		case GET_MORE_SUCCESS:
 			return { ...state, images: [...state.images, ...payload.data], page: state.page + 1 };
 		case GET_FAVORITE_SUCCESS:
-			return { ...state, favoriteImages: [...state.favoriteImages, ...payload.data] };
+			return { ...state, favoriteImages: [...state.favoriteImages, payload.data] };
+		case REFRESH_FAVORITE_SUCCESS:
+			return { ...state, favoriteImages: payload.data };
 		case IS_EMPTY:
 			return { ...state, images: [], isEmpty: true };
 		case IS_END:
