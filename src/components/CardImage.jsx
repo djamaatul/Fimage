@@ -18,7 +18,7 @@ const CardImage = (props) => {
 						uri: props.uri,
 					}}
 					style={{
-						margin: dp(1),
+						margin: vw(0.5),
 						width: vw(48),
 						height: vw(60),
 						resizeMode: 'cover',

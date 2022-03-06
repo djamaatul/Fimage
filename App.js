@@ -7,16 +7,22 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
+
+import { TailwindProvider } from 'tailwind-rn';
+import utilities from './tailwind.json';
+
 export default function App() {
 	return (
 		<View style={styles.container}>
 			<Provider store={store}>
-				<SafeAreaProvider>
-					<NavigationContainer>
-						<Navigations />
-						<StatusBar backgroundColor='rgba(0,0,0,0.2)' />
-					</NavigationContainer>
-				</SafeAreaProvider>
+				<TailwindProvider utilities={utilities}>
+					<SafeAreaProvider>
+						<NavigationContainer>
+							<Navigations />
+							<StatusBar backgroundColor='rgba(0,0,0,0.2)' />
+						</NavigationContainer>
+					</SafeAreaProvider>
+				</TailwindProvider>
 			</Provider>
 		</View>
 	);
@@ -25,6 +31,6 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#dddddd',
 	},
 });
